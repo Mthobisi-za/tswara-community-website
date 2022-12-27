@@ -1,0 +1,17 @@
+.user,
+.des {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.des {
+    font-weight: lighter;
+}
+
+.holder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

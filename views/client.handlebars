@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/pay.css">
+<div class="holder">
+<p class="user">Welcome {{name}}</p>
+<p class="des">Payments are made monthly on the date you subcribed on!</p>
+<p class="des">An amount of R10 will be deducted on a monthly basis.</p>
+<form name="PayFastPayNowForm" action="https://www.payfast.co.za/eng/process" method="post">
+<input required type="hidden" name="cmd" value="_paynow">
+<input required type="hidden" name="receiver" pattern="[0-9]" value="18696448">
+<input required type="hidden" name="amount" value="10.00">
+<input required type="hidden" name="item_name" maxlength="255" value="essential plan">
+<input required type="hidden" name="subscription_type" pattern="1"value="1">
+<input type="hidden" name="recurring_amount" value="10">
+<input required type="hidden" name="cycles" pattern="[0-9]" value="0">
+<input required type="hidden" name="frequency" pattern="[0-9]" value="3">
+<table>
+<tr>
+<td colspan=2 align=center>
+<input type="image" src="https://www.payfast.co.za/images/buttons/Subscribe/Dark-Large-Round-Subscribe.png" alt="Subscribe" title="Subscribe with PayFast">
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<br><br><br>
