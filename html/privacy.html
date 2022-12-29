@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../footer.css">
     <link rel="stylesheet" href="../public/css/index.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +45,7 @@
                 <a href="./privacy.html" class="links pitch">PRIVACY POLICY</a>
             </div>
             <div class="menu-right">
-                <a href="" class="links link-right pitch">Report an issue</a>
+                <a href="./issues.html" class="links link-right pitch">Report an issue</a>
             </div>
         </div>
         <div class="top-section">
@@ -472,29 +473,47 @@
     </div>
 
     <div class="comment-section"></div>
+    <div class="footer">
+      <div class="footer-div">
+          <a href="/" class="links pitch">HOME</a>
+                <a href="#about-us" class="links pitch">ABOUT US</a>
+                <a href="./contact-us.html" class="links pitch">CONTACT US</a>
+                <!-- <a href="#" class="links pitch">DOWNLOADS</a> -->
+                <a href="./privacy.html" class="links pitch">PRIVACY POLICY</a>
+        </div>
+        <div class="footer-div">
+            <p>Social Links</p>
+            <a class="links pitch" href="https://www.facebook.com/profile.php?id=100088691906157">Facebook</a>
+            <br>
+        </div>
+        <div class="footer-div">
+            <span>Tswara Ekac Security is a fast crime prevention application to help people get help by using our software to tap the emergency button to get help from any crime situation a person might be facing.</span>
+        </div>
+    </div>
     <script defer src="../menu.js"></script>
     <script>
-      var app_id = "IYLWu9r5cVJwEEBYHP1mouk6waeG2IDCi36fHBaG";
-      var js_api = "JkGHjneiKCcYL8iVTNTOqgqSBitg0X1SVGN00J7U";
-      // Initialize Parse
-      Parse.initialize(app_id, js_api); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-      Parse.serverURL = "https://parseapi.back4app.com/";
+        var app_id = "IYLWu9r5cVJwEEBYHP1mouk6waeG2IDCi36fHBaG";
+        var js_api = "JkGHjneiKCcYL8iVTNTOqgqSBitg0X1SVGN00J7U";
+        // Initialize Parse
+        Parse.initialize(app_id, js_api); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+        Parse.serverURL = "https://parseapi.back4app.com/";
 
-      function read() {
-        var comment = Parse.Object.extend("commentClass");
-        const newComments = new Parse.Query(comment);
-        newComments.get("EWv5JsmYIy").then(
-          (comment) => {
-            // The object was retrieved successfully.
-            console.log("data => " + comment);
-          },
-          (error) => {
-            // The object was not retrieved successfully.
-            console.log("error => " + error);
-          }
-        );
-      }
-      read();
+        function read() {
+            var comment = Parse.Object.extend("commentClass");
+            const newComments = new Parse.Query(comment);
+            newComments.get("EWv5JsmYIy").then(
+                (comment) => {
+                    // The object was retrieved successfully.
+                    console.log("data => " + comment);
+                },
+                (error) => {
+                    // The object was not retrieved successfully.
+                    console.log("error => " + error);
+                }
+            );
+        }
+        read();
     </script>
-  </body>
+</body>
+
 </html>
