@@ -48,7 +48,15 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
     var id = req.params.userid;
     res.render('client', { name, surname, id });
 })
-
+app.get('/status/:state', (req, res) => {
+    var state = req.params.state;
+    console.log(state);
+    if (state == 'success') {
+        res.redirect('tswara://?status=success');
+    } else {
+        res.redirect('tswara://?status=failed');
+    }
+})
 app.listen(PORT, () => {
     console.log("Server started on " + PORT);
 });

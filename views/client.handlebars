@@ -4,23 +4,32 @@
 <p class="user">Welcome {{name}}</p>
 <p class="des">Payments are made monthly on the date you subcribed on!</p>
 <p class="des">An amount of R10 will be deducted on a monthly basis.</p>
-<form name="PayFastPayNowForm" action="https://www.payfast.co.za/eng/process" method="post">
-<input required type="hidden" name="cmd" value="_paynow">
-<input required type="hidden" name="receiver" pattern="[0-9]" value="18696448">
-<input required type="hidden" name="amount" value="10.00">
-<input required type="hidden" name="item_name" maxlength="255" value="essential plan">
-<input required type="hidden" name="subscription_type" pattern="1"value="1">
-<input type="hidden" name="recurring_amount" value="10">
-<input required type="hidden" name="cycles" pattern="[0-9]" value="0">
-<input required type="hidden" name="frequency" pattern="[0-9]" value="3">
-<table>
-<tr>
-<td colspan=2 align=center>
-<input type="image" src="https://www.payfast.co.za/images/buttons/Subscribe/Dark-Large-Round-Subscribe.png" alt="Subscribe" title="Subscribe with PayFast">
-</td>
-</tr>
-</table>
-</form>
+<form action="https://sandbox.payfast.co.za/eng/process" method="post">
+   <input type="hidden" name="merchant_id" value="10028185">
+   <input type="hidden" name="merchant_key" value="5v0q9qbiz7kfr">
+   <input type="hidden" name="amount" value="10.00">
+   <input type="hidden" name="item_name" value="Test Product">
+   <input type="hidden" name="cancel_url" value="http://localhost:5000/status/cancelled">
+   <input type="hidden" name="return_url" value="http://localhost:5000/status/success">
+   <input type="hidden" name="name_first" value="John">
+    <input type="hidden" name="name_last" value="Doe">
+    <input type="hidden" name="email_address" value="john@doe.com">
+    <input type="hidden" name="cell_number" value="0823456789"> 
+
+   <input type="submit" value="Pay R10">
+</form> 
+<style>
+    form input{
+        width: 80px;
+        height: 80px;
+        padding: 20px;
+        border-radius: 50%;
+        border: none;
+        background-color: #F2D5CE;
+        font-weight: bold;
+    }
+</style>
 </div>
 
 <br><br><br>
+	{{!-- https://sandbox.payfast.co.za/eng/process --}}
