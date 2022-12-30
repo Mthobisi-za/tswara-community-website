@@ -3,7 +3,9 @@ const exhbs = require("express-handlebars");
 const body = require("body-parser");
 const app = express();
 const crypto = require("crypto");
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
+const { initializeApp } = require("firebase/app");
+const { updateDoc, doc, collection, getDocs, query, where, getFirestore } = require("firebase/firestore");
 app.use(express.static("public"));
 app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
@@ -12,6 +14,18 @@ app.engine(
     exhbs.engine({ layoutsDir: "views/layouts", defaultLayout: "main" })
 );
 app.set("view engine", "handlebars");
+const firebaseConfig = {
+    apiKey: "AIzaSyCqpzJPGFQEC4VryuIdkKYrOvhxWkXErwA",
+    authDomain: "love-matcher-67908.firebaseapp.com",
+    projectId: "love-matcher-67908",
+    storageBucket: "love-matcher-67908.appspot.com",
+    messagingSenderId: "673306542856",
+    appId: "1:673306542856:web:211f646994a84e635162bd",
+    measurementId: "G-QXMLRL48WD"
+};
+const app_db = initializeApp(firebaseConfig);
+const db = getFirestore(app_db);
+
 app.get('/', (req, res) => {
     res.render('index')
 });
@@ -20,38 +34,39 @@ app.get('/privacy', (req, res) => {
 });
 
 app.get('/client/:name/:surname/:userid', (req, res) => {
+    app_db;
 
-    // Signature generation
-    const generateAPISignature = (data, passPhrase = null) => {
-        // Arrange the array by key alphabetically for API calls
-        let ordered_data = {};
-        Object.keys(data).sort().forEach(key => {
-            ordered_data[key] = data[key];
-        });
-        data = ordered_data;
-
-        // Create the get string
-        let getString = '';
-        for (let key in data) {
-            getString += key + '=' + encodeURIComponent(data[key]).replace(/%20/g, '+') + '&';
-        }
-
-        // Remove the last '&'
-        getString = getString.substring(0, getString.length - 1);
-        if (passPhrase !== null) { getString += `&passphrase=${encodeURIComponent(passPhrase.trim()).replace(/%20/g, "+")}`; }
-
-        // Hash the data and create the signature
-        return crypto.createHash("md5").update(getString).digest("hex");
-    }
     var name = req.params.name;
     var surname = req.params.surname;
     var id = req.params.userid;
+
     res.render('client', { name, surname, id });
 })
-app.get('/status/:state', (req, res) => {
+app.get('/status/:state/:idd', (req, res) => {
     var state = req.params.state;
+    var idd = req.params.idd;
     console.log(state);
     if (state == 'success') {
+        var id = req.params.userid;
+        (async() => {
+            // const q = query(collection(db, "users"), where("userId", "==", id));
+            const querySnapshot = await getDocs(collection(db, "users"));
+            console.log('query')
+            querySnapshot.forEach((docc) => {
+                // doc.data() is never undefined for query doc snapshots
+
+                if (docc.data().userId == idd) {
+                    var dc = doc(db, 'users', docc.id)
+                    console.log(docc.id, " => ", docc.data());
+                    (async() => {
+                        await updateDoc(dc, {
+                            status: 'success'
+                        })
+                    })()
+
+                }
+            });
+        })();
         res.redirect('tswara://?status=success');
     } else {
         res.redirect('tswara://?status=failed');
