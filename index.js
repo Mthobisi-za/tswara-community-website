@@ -40,18 +40,18 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
         const querySnapshot = await getDocs(collection(db, "currentUser"));
         querySnapshot.forEach((docc) => {
             if (docc.data().user == 'none') {
-                var dc = doc(db, 'users', '9Sc2NjijKxn7A5yKRiwP')
+                var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
                 (async() => {
                     await updateDoc(dc, {
-                        user: userId,
+                        user: id,
                         state: 'in progress'
                     })
                 })()
 
             } else {
                 setTimeout(() => {
-                    var dc = doc(db, 'users', '9Sc2NjijKxn7A5yKRiwP')
+                    var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
                     (async() => {
                         await updateDoc(dc, {
@@ -68,7 +68,7 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
     var str = 'https://client.tswaraekacsecurity.co.za/status/success/' + id
     res.render('client', { name, surname, id });
 })
-app.get('/status/:state/:idd', (req, res) => {
+app.get('/status/:state', (req, res) => {
     var state = req.params.state;
     var idd = req.params.idd;
     console.log(idd);
@@ -82,7 +82,7 @@ app.get('/status/:state/:idd', (req, res) => {
                 // doc.data() is never undefined for query doc snapshots
 
                 if (docc.data().userId == idd) {
-                    var dc = doc(db, 'users', docc.id)
+                    var dc = doc(db, 'users', docc.id);
                     console.log(docc.id, " => ", docc.data());
                     (async() => {
                         await updateDoc(dc, {
@@ -93,7 +93,7 @@ app.get('/status/:state/:idd', (req, res) => {
                 }
             });
         })();
-        var dc = doc(db, 'users', '9Sc2NjijKxn7A5yKRiwP')
+        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP')
 
         (async() => {
             await updateDoc(dc, {
