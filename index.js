@@ -35,38 +35,38 @@ app.get('/privacy', (req, res) => {
 
 app.get('/client/:name/:surname/:userid', (req, res) => {
     app_db;
-    var id = req.params.userid;
-    (async() => {
-        const querySnapshot = await getDocs(collection(db, "currentUser"));
-        querySnapshot.forEach((docc) => {
-            if (docc.data().user == 'none') {
-                var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
-
-                (async() => {
-                    await updateDoc(dc, {
-                        user: id,
-                        state: 'in progress'
-                    })
-                })()
-
-            } else {
-                setTimeout(() => {
+    var idd = req.params.userid;
+    console.log('idddd>>>> ' + idd)
+        (async() => {
+            const querySnapshot = await getDocs(collection(db, "currentUser"));
+            querySnapshot.forEach((docc) => {
+                if (docc.data().user == 'none') {
                     var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
                     (async() => {
                         await updateDoc(dc, {
-                            user: userId,
+                            user: idd,
                             state: 'in progress'
                         })
                     })()
-                }, 3000);
-            }
-        });
-    })();
+
+                } else {
+                    setTimeout(() => {
+                        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
+
+                        (async() => {
+                            await updateDoc(dc, {
+                                user: idd,
+                                state: 'in progress'
+                            })
+                        })()
+                    }, 3000);
+                }
+            });
+        })();
     var name = req.params.name;
     var surname = req.params.surname;
-    var str = 'https://client.tswaraekacsecurity.co.za/status/success/' + id
-    res.render('client', { name, surname, id });
+    res.render('client', { name, surname, id: idd });
 })
 app.get('/status/:state', (req, res) => {
     var state = req.params.state;
