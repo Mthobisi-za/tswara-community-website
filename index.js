@@ -75,13 +75,21 @@ app.get('/status/:state', (req, res) => {
     if (state == 'success') {
         var id = req.params.userid;
         (async() => {
-            // const q = query(collection(db, "users"), where("userId", "==", id));
+            var userId = async() => {
+                    var imList = []
+                    var list = await getDocs(collection(db, 'currentUser'));
+                    list.forEach(ele => {
+                        imList.push(ele.data().user);
+                    });
+                    return imList[0];
+                }
+                // const q = query(collection(db, "users"), where("userId", "==", id));
             const querySnapshot = await getDocs(collection(db, "users"));
             console.log('query')
             querySnapshot.forEach((docc) => {
                 // doc.data() is never undefined for query doc snapshots
 
-                if (docc.data().userId == idd) {
+                if (docc.data().userId == userId()) {
                     var dc = doc(db, 'users', docc.id);
                     console.log(docc.id, " => ", docc.data());
                     (async() => {
