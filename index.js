@@ -39,8 +39,8 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
     var name = req.params.name;
     var surname = req.params.surname;
     var id = req.params.userid;
-
-    res.render('client', { name, surname, id });
+    var str = 'https://client.tswaraekacsecurity.co.za/status/success/' + id
+    res.render('client', { name, surname, str: JSON.stringify(str) });
 })
 app.get('/status/:state/:idd', (req, res) => {
     var state = req.params.state;
