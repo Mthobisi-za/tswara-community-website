@@ -5,7 +5,7 @@ const app = express();
 const crypto = require("crypto");
 const PORT = process.env.PORT || 5000;
 const { initializeApp } = require("firebase/app");
-const { updateDoc, doc, collection, getDocs, query, where, getFirestore } = require("firebase/firestore");
+const { updateDoc, doc, collection, getDocs, query, where, getFirestore, limit } = require("firebase/firestore");
 app.use(express.static("public"));
 app.use(body.urlencoded({ extended: false }));
 app.use(body.json());
@@ -13,6 +13,7 @@ app.engine(
     "handlebars",
     exhbs.engine({ layoutsDir: "views/layouts", defaultLayout: "main" })
 );
+var uui;
 app.set("view engine", "handlebars");
 const firebaseConfig = {
     apiKey: "AIzaSyCqpzJPGFQEC4VryuIdkKYrOvhxWkXErwA",
@@ -36,6 +37,7 @@ app.get('/privacy', (req, res) => {
 app.get('/client/:name/:surname/:userid', (req, res) => {
     app_db;
     var idd = req.params.userid;
+    uui = req.params.userid;
     console.log('idddd>>>> ' + idd);
     (async() => {
         const querySnapshot = await getDocs(collection(db, "currentUser"));
@@ -70,35 +72,49 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
 })
 app.get('/status/:state', (req, res) => {
     var state = req.params.state;
-    var idd = req.params.idd;
-    console.log(idd);
     if (state == 'success') {
-        var id = req.params.userid;
         (async() => {
             var userId = async() => {
                     var imList = []
                     var list = await getDocs(collection(db, 'currentUser'));
-                    list.forEach(ele => {
+                    await list.forEach(ele => {
+                        console.log('ele> ' + JSON.stringify(ele.data()));
                         imList.push(ele.data().user);
                     });
                     return imList[0];
                 }
                 // const q = query(collection(db, "users"), where("userId", "==", id));
             const querySnapshot = await getDocs(collection(db, "users"));
-            console.log('query')
+            console.log('query');
             querySnapshot.forEach((docc) => {
                 // doc.data() is never undefined for query doc snapshots
+                console.log(userId());
 
-                if (docc.data().userId == userId()) {
-                    var dc = doc(db, 'users', docc.id);
-                    console.log(docc.id, " => ", docc.data());
-                    (async() => {
-                        await updateDoc(dc, {
-                            status: 'success'
-                        })
-                    })()
 
-                }
+
+                (async() => {
+                    var imList = []
+                    var list = await getDocs(collection(db, 'currentUser'));
+                    await list.forEach(ele => {
+                        console.log('ele> ' + ele.data().user);
+                        imList.push(ele.data().user);
+                    });
+
+                    console.log(uui);
+                    if (docc.data().userId == await uui) {
+                        var dc = doc(db, 'users', docc.id);
+                        console.log(docc.id, " => ", docc.data());
+                        (async() => {
+                            await updateDoc(dc, {
+                                status: 'success'
+                            })
+                        })()
+
+                    }
+                    return imList[0];
+                })();
+
+
             });
         })();
         var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
@@ -108,7 +124,7 @@ app.get('/status/:state', (req, res) => {
                 user: 'none',
                 state: 'none'
             })
-        })()
+        })();
         res.redirect('tswara://?status=success');
     } else {
         res.redirect('tswara://?status=failed');
