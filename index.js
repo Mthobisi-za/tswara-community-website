@@ -36,11 +36,22 @@ app.get('/privacy', (req, res) => {
 app.get('/client/:name/:surname/:userid', (req, res) => {
     app_db;
     var idd = req.params.userid;
-    console.log('idddd>>>> ' + idd)
-        (async() => {
-            const querySnapshot = await getDocs(collection(db, "currentUser"));
-            querySnapshot.forEach((docc) => {
-                if (docc.data().user == 'none') {
+    console.log('idddd>>>> ' + idd);
+    (async() => {
+        const querySnapshot = await getDocs(collection(db, "currentUser"));
+        querySnapshot.forEach((docc) => {
+            if (docc.data().user == 'none') {
+                var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
+
+                (async() => {
+                    await updateDoc(dc, {
+                        user: idd,
+                        state: 'in progress'
+                    })
+                })()
+
+            } else {
+                setTimeout(() => {
                     var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
                     (async() => {
@@ -49,21 +60,10 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
                             state: 'in progress'
                         })
                     })()
-
-                } else {
-                    setTimeout(() => {
-                        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
-
-                        (async() => {
-                            await updateDoc(dc, {
-                                user: idd,
-                                state: 'in progress'
-                            })
-                        })()
-                    }, 3000);
-                }
-            });
-        })();
+                }, 3000);
+            }
+        });
+    })();
     var name = req.params.name;
     var surname = req.params.surname;
     res.render('client', { name, surname, id: idd });
