@@ -93,7 +93,7 @@ app.get('/status/:state', (req, res) => {
                 }
             });
         })();
-        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP')
+        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
         (async() => {
             await updateDoc(dc, {
