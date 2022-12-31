@@ -45,7 +45,7 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
 app.get('/status/:state/:idd', (req, res) => {
     var state = req.params.state;
     var idd = req.params.idd;
-    console.log(state);
+    console.log(idd);
     if (state == 'success') {
         var id = req.params.userid;
         (async() => {
