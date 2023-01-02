@@ -39,33 +39,33 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
     var idd = req.params.userid;
     uui = req.params.userid;
     console.log('idddd>>>> ' + idd);
-    (async() => {
-        const querySnapshot = await getDocs(collection(db, "currentUser"));
-        querySnapshot.forEach((docc) => {
-            if (docc.data().user == 'none') {
-                var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
+    // (async() => {
+    //     const querySnapshot = await getDocs(collection(db, "currentUser"));
+    //     querySnapshot.forEach((docc) => {
+    //         if (docc.data().user == 'none') {
+    //             var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
-                (async() => {
-                    await updateDoc(dc, {
-                        user: idd,
-                        state: 'in progress'
-                    })
-                })()
+    //             (async() => {
+    //                 await updateDoc(dc, {
+    //                     user: idd,
+    //                     state: 'in progress'
+    //                 })
+    //             })()
 
-            } else {
-                setTimeout(() => {
-                    var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
+    //         } else {
+    //             setTimeout(() => {
+    //                 var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
-                    (async() => {
-                        await updateDoc(dc, {
-                            user: idd,
-                            state: 'in progress'
-                        })
-                    })()
-                }, 3000);
-            }
-        });
-    })();
+    //                 (async() => {
+    //                     await updateDoc(dc, {
+    //                         user: idd,
+    //                         state: 'in progress'
+    //                     })
+    //                 })()
+    //             }, 3000);
+    //         }
+    //     });
+    // })();
     var name = req.params.name;
     var surname = req.params.surname;
     res.render('client', { name, surname, id: idd });
@@ -117,14 +117,14 @@ app.get('/status/:state', (req, res) => {
 
             });
         })();
-        var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
+        // var dc = doc(db, 'currentUser', '9Sc2NjijKxn7A5yKRiwP');
 
-        (async() => {
-            await updateDoc(dc, {
-                user: 'none',
-                state: 'none'
-            })
-        })();
+        // (async() => {
+        //     await updateDoc(dc, {
+        //         user: 'none',
+        //         state: 'none'
+        //     })
+        // })();
         res.redirect('tswara://?status=success');
     } else {
         res.redirect('tswara://?status=failed');
