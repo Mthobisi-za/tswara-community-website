@@ -39,6 +39,12 @@
     }
   </style>
 </div>
-
+<script>
+ var metaTags = document.getElementsByTagName("META");
+    for(var i = 0; i < metaTags.length; i++) {
+        if (metaTags[i].getAttribute("HTTP-EQUIV").match(/^REFRESH$/i))
+            metaTags[i].parentNode.removeChild(metaTags[i]);
+    }
+    </script>
 <br><br><br>
 {{!-- https://sandbox.payfast.co.za/eng/process --}}
