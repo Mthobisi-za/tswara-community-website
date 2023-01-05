@@ -88,7 +88,6 @@ app.get('/status/:state', (req, res) => {
             console.log('query');
             querySnapshot.forEach((docc) => {
                 // doc.data() is never undefined for query doc snapshots
-                console.log(userId());
 
 
 
