@@ -18,7 +18,7 @@
 
    <input type="submit" value="Pay R10">
 </form> 
-<div id="paypal-button-container-P-79F10556AT232974SMO3KCYA"></div>
+<div id="paypal-button-container-P-86K40887TV370180GMO3JOQA"></div>
 <script src="https://www.paypal.com/sdk/js?client-id=AbiWFTdQkcnth_Uin3PL0eCmNg2oGUutUcLBVGMaZCkzF7cXpMBgnR_TCuYULTCNdPfMyK2NNz0jNaOx&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
   paypal.Buttons({
@@ -31,14 +31,14 @@
       createSubscription: function(data, actions) {
         return actions.subscription.create({
           /* Creates the subscription */
-          plan_id: 'P-79F10556AT232974SMO3KCYA'
+          plan_id: 'P-86K40887TV370180GMO3JOQA'
         });
       },
       onApprove: function(data, actions) {
         alert(data.subscriptionID); // You can add optional success message for the subscriber here
-        window.location.href('https://client.tswaraekacsecurity.co.za/status/success');
+        window.location.href('https://client.tswaraekacsecurity.co.za/status/success')
       }
-  }).render('#paypal-button-container-P-79F10556AT232974SMO3KCYA'); // Renders the PayPal button
+  }).render('#paypal-button-container-P-86K40887TV370180GMO3JOQA'); // Renders the PayPal button
 </script>
 <style>
     form input{
