@@ -4,42 +4,27 @@
 <p class="user">Welcome {{name}}</p>
 <p class="des">Payments are made monthly on the date you subcribed on!</p>
 <p class="des">An amount of R10 will be deducted on a monthly basis.</p>
-<form action="https://sandbox.payfast.co.za/eng/process" method="post">
-   <input type="hidden" name="merchant_id" value="10028185">
-   <input type="hidden" name="merchant_key" value="5v0q9qbiz7kfr">
-   <input type="hidden" name="amount" value="10.00">
-   <input type="hidden" name="item_name" value="Test Product">
-   <input type="hidden" name="cancel_url" value="https://client.tswaraekacsecurity.co.za/status/cancelled">
-   <input type="hidden" name="return_url" value='https://client.tswaraekacsecurity.co.za/status/success'>
-   <input type="hidden" name="name_first" value="John">
-    <input type="hidden" name="name_last" value="Doe">
-    <input type="hidden" name="email_address" value="john@doe.com">
-    <input type="hidden" name="cell_number" value="0823456789"> 
+<form name="PayFastPayNowForm" action="https://www.payfast.co.za/eng/process" method="post">
+<input required type="hidden" name="cmd" value="_paynow">
+<input required type="hidden" name="receiver" pattern="[0-9]" value="18696448">
+<input type="hidden" name="return_url" value="https://client.tswaraekacsecurity.co.za/status/success">
+<input type="hidden" name="cancel_url" value="https://client.tswaraekacsecurity.co.za/status/cancelled">
+<input required type="hidden" name="amount" value="10">
+<input required type="hidden" name="item_name" maxlength="255" value="Essential Plan">
+<input type="hidden" name="item_description" maxlength="255" value="Tswara Ekac Security is a fast crime prevention application to help people get help by using our software to tap the emergency button to get help from any crime situation a person might be facing. Help is provided by responsible community members.">
+<input required type="hidden" name="subscription_type" pattern="1"value="1">
+<input type="hidden" name="recurring_amount" value="10">
+<input required type="hidden" name="cycles" pattern="[0-9]" value="0">
+<input required type="hidden" name="frequency" pattern="[0-9]" value="3">
+<table>
+<tr>
+<td colspan=2 align=center>
+<input type="image" src="https://www.payfast.co.za/images/buttons/Subscribe/Dark-Large-Round-Subscribe.png" alt="Subscribe" title="Subscribe with PayFast">
+</td>
+</tr>
+</table>
+</form>
 
-   <input type="submit" value="Pay R10">
-</form> 
-<div id="paypal-button-container-P-86K40887TV370180GMO3JOQA"></div>
-<script src="https://www.paypal.com/sdk/js?client-id=AbiWFTdQkcnth_Uin3PL0eCmNg2oGUutUcLBVGMaZCkzF7cXpMBgnR_TCuYULTCNdPfMyK2NNz0jNaOx&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
-<script>
-  paypal.Buttons({
-      style: {
-          shape: 'rect',
-          color: 'gold',
-          layout: 'vertical',
-          label: 'subscribe'
-      },
-      createSubscription: function(data, actions) {
-        return actions.subscription.create({
-          /* Creates the subscription */
-          plan_id: 'P-86K40887TV370180GMO3JOQA'
-        });
-      },
-      onApprove: function(data, actions) {
-        alert(data.subscriptionID); // You can add optional success message for the subscriber here
-        window.location.href('https://client.tswaraekacsecurity.co.za/status/success')
-      }
-  }).render('#paypal-button-container-P-86K40887TV370180GMO3JOQA'); // Renders the PayPal button
-</script>
 <style>
     form input{
         width: 80px;
