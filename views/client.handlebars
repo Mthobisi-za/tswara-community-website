@@ -48,7 +48,7 @@
     }, 
     onApprove: function(data, actions) {
     alert('You have successfully created subscription ' + data.subscriptionID);
-    window.location.href = "/status/success/"+ id;
+    window.location.href = `https://client.tswaraekacsecurity.co.za/status/success/${id}`;
   }
   }).render('#paypal-button-container');
   })
