@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/pay.css">
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&components=buttons"></script>
+
 <div class="holder">
+  <input type="hidden" id="idd" value={{id}}>
   <p class="user">Welcome {{name}}</p>
   <p class="des">Payments are made monthly on the date you subcribed on!</p>
   <p class="des">An amount of R10 will be deducted on a monthly basis.</p>
@@ -26,7 +29,31 @@
       </tr>
     </table>
   </form>
-
+  <div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AWnYHBacmpux9DPatK5eWxId2qMP-iZlSO7hwH9MrC6TpjcOKuNgMgQ8Xm4kaKYcmnpv-D-XHYagMr_C&components=buttons"></script>
+<script defer>
+  document.addEventListener('DOMContentLoaded', ()=>{
+    var id = document.querySelector('#idd').value;
+    console.log('id >>>> '+ id)
+    paypal.Buttons({
+    createOrder: function(data, actions) {
+      // Set up the transaction
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '0.01'
+          }
+        }]
+      });
+    }, 
+    onApprove: function(data, actions) {
+    alert('You have successfully created subscription ' + data.subscriptionID);
+    window.location.href = "/status/success/"+ id;
+  }
+  }).render('#paypal-button-container');
+  })
+  
+</script>
   <style>
     form input {
       width: 80px;

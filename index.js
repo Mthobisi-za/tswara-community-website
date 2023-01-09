@@ -35,6 +35,8 @@ app.get('/privacy', (req, res) => {
 });
 
 app.get('/client/:name/:surname/:userid', (req, res) => {
+    var paypalClientId = 'AWnYHBacmpux9DPatK5eWxId2qMP-iZlSO7hwH9MrC6TpjcOKuNgMgQ8Xm4kaKYcmnpv-D-XHYagMr_C';
+    var paypalemail = 'sb-dbcwt23974618@business.example.com';
     app_db;
     var idd = req.params.userid;
     uui = req.params.userid;
@@ -70,9 +72,11 @@ app.get('/client/:name/:surname/:userid', (req, res) => {
     var surname = req.params.surname;
     res.render('client', { name, surname, id: idd });
 })
-app.get('/status/:state', (req, res) => {
+app.get('/status/:state/:id', (req, res) => {
     var state = req.params.state;
+    var id = req.params.id;
     if (state == 'success') {
+        console.log('client who just paid is > ' + id);
         (async() => {
             var userId = async() => {
                     var imList = []
@@ -100,7 +104,8 @@ app.get('/status/:state', (req, res) => {
                     });
 
                     console.log(uui);
-                    if (docc.data().userId == await uui) {
+                    // await uui
+                    if (docc.data().userId == id) {
                         var dc = doc(db, 'users', docc.id);
                         console.log(docc.id, " => ", docc.data());
                         (async() => {
