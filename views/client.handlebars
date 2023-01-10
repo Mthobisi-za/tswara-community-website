@@ -6,7 +6,7 @@
   <p class="user">Welcome {{name}}</p>
   <p class="des">Payments are made monthly on the date you subcribed on!</p>
   <p class="des">An amount of R10 will be deducted on a monthly basis.</p>
-  <form class="formp" name="PayFastPayNowForm" action="https://www.payfast.co.za/eng/process" method="post">
+  {{!-- <form class="formp" name="PayFastPayNowForm" action="https://www.payfast.co.za/eng/process" method="post">
     <input required type="hidden" name="cmd" value="_paynow">
     <input required type="hidden" name="receiver" pattern="[0-9]" value="18696448">
     <input type="hidden" name="return_url" value="https://client.tswaraekacsecurity.co.za/status/success">
@@ -27,9 +27,12 @@
         </td>
       </tr>
     </table>
-  </form>
+  </form> --}}
   <div id="paypal-button-container"></div>
-<script src="https://www.paypal.com/sdk/js?client-id=AWnYHBacmpux9DPatK5eWxId2qMP-iZlSO7hwH9MrC6TpjcOKuNgMgQ8Xm4kaKYcmnpv-D-XHYagMr_C&components=buttons"></script>
+  <div id="paypal-button-container-P-86K40887TV370180GMO3JOQA"></div>
+{{!-- <script src="https://www.paypal.com/sdk/js?client-id=AWnYHBacmpux9DPatK5eWxId2qMP-iZlSO7hwH9MrC6TpjcOKuNgMgQ8Xm4kaKYcmnpv-D-XHYagMr_C&components=buttons"></script> --}}
+<script src="https://www.paypal.com/sdk/js?client-id=AbiWFTdQkcnth_Uin3PL0eCmNg2oGUutUcLBVGMaZCkzF7cXpMBgnR_TCuYULTCNdPfMyK2NNz0jNaOx&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
 <script defer>
 
     var id = document.querySelector('#idd').value;
@@ -37,7 +40,7 @@
 
 
 
-
+/*{{!-- 
     paypal.Buttons({
     createOrder: function(data, actions) {
       // Set up the transaction
@@ -53,9 +56,29 @@
     alert('You have successfully created subscription ' + data.subscriptionID);
     window.location.href = `/status/success/${id}#payment-details`;
   }
-  }).render('#paypal-button-container');
+  }).render('#paypal-button-container'); --}}*/
 
   
+
+
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-86K40887TV370180GMO3JOQA'
+        });
+      },
+      onApprove: function(data, actions) {
+            window.location.href = `/status/success/${id}#payment-details`;
+      }
+  }).render('#paypal-button-container-P-86K40887TV370180GMO3JOQA'); // Renders the PayPal button
+
 </script>
   <style>
     form input {
