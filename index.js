@@ -129,7 +129,8 @@ app.get('/status/:state/:id', (req, res) => {
         //         state: 'none'
         //     })
         // })();
-        res.redirect('tswara://?status=success');
+        // res.redirect('tswara://?status=success');
+        res.render('success');
     } else {
         res.redirect('tswara://?status=failed');
     }
